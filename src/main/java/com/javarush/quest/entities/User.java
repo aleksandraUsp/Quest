@@ -1,4 +1,4 @@
-package entities;
+package com.javarush.quest.entities;
 
 
 import lombok.Builder;

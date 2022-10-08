@@ -1,8 +1,8 @@
 package com.javarush.quest.controller;
 
 import com.javarush.quest.util.Jsp;
-import entities.Role;
-import entities.User;
+import com.javarush.quest.entities.Role;
+import com.javarush.quest.entities.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import service.AvatarService;
-import service.UserService;
+import com.javarush.quest.service.AvatarService;
+import com.javarush.quest.service.UserService;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package service;
+package com.javarush.quest.service;
 
 import com.javarush.quest.util.QuestException;
 

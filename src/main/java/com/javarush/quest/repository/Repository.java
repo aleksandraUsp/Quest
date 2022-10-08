@@ -1,6 +1,6 @@
-package repository;
+package com.javarush.quest.repository;
 
-import entities.User;
+import com.javarush.quest.entities.User;
 
 import java.util.Collection;
 import java.util.Optional;

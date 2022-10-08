@@ -1,8 +1,8 @@
-package service;
+package com.javarush.quest.service;
 
-import entities.User;
-import repository.Repository;
-import repository.UserRepository;
+import com.javarush.quest.entities.User;
+import com.javarush.quest.repository.Repository;
+import com.javarush.quest.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.Optional;
