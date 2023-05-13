@@ -22,7 +22,18 @@ public class User {
     private Role role;
 
     private String image;
+
+    private Quest quest;
     private String getImage(){
         return "image"+id;
+
+    }
+
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        this.quest = quest;
     }
 }

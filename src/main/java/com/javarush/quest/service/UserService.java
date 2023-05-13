@@ -4,12 +4,8 @@ import com.javarush.quest.entities.Quest;
 import com.javarush.quest.entities.User;
 import com.javarush.quest.repository.Repository;
 import com.javarush.quest.repository.UserRepository;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
 import static com.javarush.quest.entities.Quest.*;
 
 public enum UserService {
@@ -38,17 +34,17 @@ public enum UserService {
 
         return userRepository.get(id);
     }
+    @SuppressWarnings("UnnecessaryLocalVariable")
     public List<String> getFirstQuest(){
-        Quest firstQuest= new Quest(0,1,11);
-        List s1= List.of("0","1","11");
-        return s1;
-        /*String[] stations=Quest.getQuestStations();
-
-        List<String> condition= Arrays.asList (
-                stations [firstQuest.getDuringStep()],
-                stations [firstQuest.getFirstAnswer()],
-                stations [firstQuest.getSecondAnswer()]
+        Quest quest=null;
+        if (quest==null) quest=new Quest(0,1,11);
+        //else
+        List<String> condition= List.of (
+                questStations[quest.getDuringStep()],
+                questStations[quest.getFirstAnswer()],
+                questStations[quest.getSecondAnswer()]
         );
-        return condition;*/
+
+        return condition;
     }
 }

@@ -15,9 +15,9 @@ public class UserRepository implements Repository<User> {
     public Map<Long, User> map = new HashMap<>();
 
     public UserRepository() {
-        map.put(1L, new User(1L, "Petr", "3456", Role.USER, "image-1.jpg"));
-        map.put(2L, new User(2L,"Artur","", Role.GUEST, "image-2.jpg"));
-        map.put(3L, new User(3L,"Olga","1234", Role.ADMIN, "image-3.png"));
+        map.put(1L, new User(1L, "Petr", "3456", Role.USER, "image-1.jpg",null));
+        map.put(2L, new User(2L,"Artur","", Role.GUEST, "image-2.jpg",null));
+        map.put(3L, new User(3L,"Olga","1234", Role.ADMIN, "image-3.png",null));
 
 }
 
