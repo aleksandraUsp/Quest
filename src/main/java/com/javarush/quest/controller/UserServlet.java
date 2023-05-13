@@ -1,29 +1,30 @@
 package com.javarush.quest.controller;
 
-import com.javarush.quest.util.Jsp;
 import com.javarush.quest.entities.Role;
 import com.javarush.quest.entities.User;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-import com.javarush.quest.service.AvatarService;
+import com.javarush.quest.service.ImageService;
 import com.javarush.quest.service.UserService;
+import com.javarush.quest.util.Jsp;
+import com.javarush.quest.util.QuestException;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+
+import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@MultipartConfig (fileSizeThreshold = 1<<20)
-@WebServlet(name = "user", value = "/user")
+
+@WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
 
-    UserService userService=UserService.USER_SERVICE;
+    UserService userService = UserService.USER_SERVICE;
+    ImageService imageService = ImageService.IMAGE_SERVICE;
     private static volatile AtomicInteger UID=new AtomicInteger(1);
-    private final AvatarService avatarService= AvatarService.INSTANCE;
+    public static final String PART_NAME = "image";
 
     @Override
     public void init()  {
@@ -31,50 +32,81 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<String> stringId = Optional.ofNullable(req.getParameter("id"));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Optional<String> stringId = Optional.ofNullable(request.getParameter("id"));
         if (stringId.isPresent()){
             long id=Long.parseLong(stringId.get());
-            Optional<User> user = userService.get(id);
-            user.ifPresent(value -> req.setAttribute("user", value));
+            Optional<User> user = Optional.ofNullable(userService.get(id));
+            user.ifPresent(value -> request.setAttribute("user", value));
+            Jsp.forward(request,response,"user");
         }
-        Jsp.forward(req,resp,"user");
+        else Jsp.forward(request,response,"users");
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id=getId(req);
-        Part data=req.getPart("image");
-        String image="avatar-"+id+UID.getAndIncrement();
-        avatarService.uploadAvatar(image, data.getInputStream());
-        User user=User.with()
-                .id(id)
-                .login(req.getParameter("login"))
-                .password(req.getParameter("password"))
-                .image(image)
-                .role(Role.valueOf(req.getParameter("role")))
-                .get();
-        postUser(req, user);
-        Jsp.redirect(resp, "users");
-    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long id = getId(request);
+        String image = "image-" + id;
+        Part data = request.getPart(PART_NAME);
+        if (Objects.nonNull(data) && data.getInputStream().available() > 0) {
+            imageService.uploadImage(request, id);
+        }
+            User user = User.with()
+                    .id(id)
+                    .login(request.getParameter("login"))
+                    .password(request.getParameter("password"))
+                    .image(image)
+                    .role(Role.valueOf(request.getParameter("role")))
+                    .get();
+            postUser(request, user);
+            Jsp.redirect(response, "users");
+        }
 
-    protected void postUser(HttpServletRequest req, User user){
-        boolean present=userService.get(user.getId()).isPresent();
-        if (present && req.getParameter("update")!=null) {
-            userService.update(user);
-        } else if (present && req.getParameter("delete")!=null){
-            userService.delete(user);
-        }else if (!present && req.getParameter("creat")!=null){
-            userService.create(user);
-        } else{
-            throw new UnsupportedOperationException("not found cmd");
+
+        protected void postUser (HttpServletRequest request, User user){
+            Optional<Long> stringId = Optional.ofNullable(user.getId());
+            boolean present = stringId.isPresent();
+            if (present && request.getParameter("update") != null) {
+                userService.update(user);
+            } else if (present && request.getParameter("delete") != null) {
+                userService.delete(user);
+            } else if (!present && request.getParameter("creat") != null) {
+                userService.create(user);
+            } else {
+                throw new QuestException("unknown command for user");
+            }
+        }
+
+        protected long getId (HttpServletRequest request){
+            return request.getParameter("id") != null ?
+                    Long.parseLong(request.getParameter("id"))
+                    : 0L;
         }
     }
 
-    protected  long getId(HttpServletRequest req){
-        return req.getParameter("id") !=null?
-                Long.parseLong(req.getParameter("id"))
-                : 0L;
-    }
 
-}
+
+
+
+
+
+       /* User user = User.builder()
+                .id(Long.valueOf(request.getParameter("id")))
+                .login(request.getParameter("login"))
+                .password(request.getParameter("password"))
+                .role(Role.valueOf(request.getParameter("role")))
+                .image(request.getParameter("image"))
+                .build();
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (parameterMap.containsKey("create")) {
+            userService.create(user);
+        } else if (parameterMap.containsKey("update")) {
+            userService.update(user);
+        } else if (parameterMap.containsKey("delete")) {
+            userService.delete(user);
+        } else throw new QuestException("unknown command");
+        imageService.uploadImage(request, user.getId());
+        response.sendRedirect("users");
+    }*/
+

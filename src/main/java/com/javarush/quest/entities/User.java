@@ -1,13 +1,18 @@
 package com.javarush.quest.entities;
 
-
+import com.javarush.quest.entities.Role;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(builderMethodName = "with", buildMethodName = "get")
-public class User {
 
+public class User {
     private long id;
 
     private String login;
@@ -17,5 +22,7 @@ public class User {
     private Role role;
 
     private String image;
-
+    private String getImage(){
+        return "image"+id;
+    }
 }

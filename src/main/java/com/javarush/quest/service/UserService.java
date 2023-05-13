@@ -1,11 +1,16 @@
 package com.javarush.quest.service;
 
+import com.javarush.quest.entities.Quest;
 import com.javarush.quest.entities.User;
 import com.javarush.quest.repository.Repository;
 import com.javarush.quest.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
+
+import static com.javarush.quest.entities.Quest.*;
 
 public enum UserService {
 
@@ -29,7 +34,21 @@ public enum UserService {
         return userRepository.getAll();
     }
 
-    public Optional<User> get(long id) {
+    public User get(long id) {
+
         return userRepository.get(id);
+    }
+    public List<String> getFirstQuest(){
+        Quest firstQuest= new Quest(0,1,11);
+        List s1= List.of("0","1","11");
+        return s1;
+        /*String[] stations=Quest.getQuestStations();
+
+        List<String> condition= Arrays.asList (
+                stations [firstQuest.getDuringStep()],
+                stations [firstQuest.getFirstAnswer()],
+                stations [firstQuest.getSecondAnswer()]
+        );
+        return condition;*/
     }
 }

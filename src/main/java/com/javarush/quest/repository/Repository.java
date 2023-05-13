@@ -1,15 +1,14 @@
 package com.javarush.quest.repository;
 
-import com.javarush.quest.entities.User;
-
 import java.util.Collection;
 import java.util.Optional;
 
 public interface Repository<T> {
 
-    Collection<User> getAll();
+    Collection<T> getAll();
+    Collection<T>find (T pattern);
 
-    Optional<T> get(long id);
+   T get(long id);
 
     void create(T entity);
 

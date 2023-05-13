@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="Quest:war">
+  <artifact type="war" build-on-make="true" name="Quest:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
