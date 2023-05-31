@@ -15,8 +15,7 @@ public class Quest {
         questSteps.put(4, "Ты не пошел на переговоры. Поражение");
         questSteps.put(5, "Твою ложь разоблачили. Поражение");
         questSteps.put(6, "Ты отклонил вызов. Поражение");
-        String stepString=questSteps.get(step);
-        return stepString;
+        return questSteps.get(step);
     }
     public String getFirstAnswer(int step) {
         if(step<=2){

@@ -43,7 +43,9 @@ public class FirstQuestServlet extends HttpServlet {
         List<String> firstQuest = userService.getFirstQuest(step);
             session.setAttribute("step", step);
             request.setAttribute("step", firstQuest.get(0));
-            request.setAttribute("firstAnswer", firstQuest.get(1));
+            if (!firstQuest.get(1).equals("Нет вариантов")){
+            request.setAttribute("firstAnswer", firstQuest.get(1));}
+            else {request.setAttribute("firstAnswer", null);}
             request.setAttribute("secondAnswer", firstQuest.get(2));
             Jsp.forward(request, response, "FirstQuest");
 

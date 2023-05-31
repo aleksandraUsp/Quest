@@ -10,10 +10,10 @@
 <%@ include file="/header-icons.html"%>
 <html>
 <head>
-    <title>Первый квест</title>
+    <title>ИТОГ КВЕСТА</title>
 </head>
 <body>
-<form class="form-horizontal" action="/firstQuest" method="post">
+<form class="form-horizontal" action="/final" method="post">
     <fieldset>
 
         <!-- Form Name -->
@@ -30,7 +30,6 @@
         </div>
 
 <!-- Button -->
-<c:if test="${sessionScope.step<=2}">
 <div class="form-group">
     <label class="col-md-4 control-label" for="firstAnswer"></label>
     <div class="col-md-4">
@@ -38,7 +37,6 @@
                 class="btn btn-success"> ${requestScope.get("firstAnswer")} </button>
     </div>
 </div>
-</c:if>
 
 <!-- Button -->
 <div class="form-group">
@@ -46,6 +44,16 @@
     <div class="col-md-4">
         <button type="submit" id="secondAnswer" name="${sessionScope.secondAnswer}" value="${sessionScope.step}"
                 class="btn btn-success"> ${requestScope.get("secondAnswer")} </button>
+    </div>
+</div>
+
+
+<!-- Button -->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="next"></label>
+    <div class="col-md-4">
+        <button type="submit" id="next" name="next"
+                class="btn btn-success"> Вперед </button>
     </div>
 </div>
 
