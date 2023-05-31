@@ -13,53 +13,51 @@
     <title>Первый квест</title>
 </head>
 <body>
-<form class="form-horizontal">
+<form class="form-horizontal" action="/firstQuest" method="post">
     <fieldset>
 
         <!-- Form Name -->
         <legend>Первый квест</legend>
+        <p>Шаг ${sessionScope.get("step")}</p>
 
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="step">Состояние</label>
             <div class="col-md-4">
-                <textarea class="form-control" id="step" name="">${requestScope.get("step")}</textarea>
+                <textarea class="form-control" id="step" name=${requestScope.get("step")}>
+                    ${requestScope.get("step")}</textarea>
             </div>
         </div>
 
-        <!-- Multiple Checkboxes -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="firstAnswer">Шаг</label>
-            <div class="col-md-4">
-                <div class="checkbox">
-                    <label for="firstAnswer">
-                        <input type="checkbox" name="checkboxes" id="firstAnswer" value="${requestScope.get("firstAnswer")}">
-                        ${requestScope.get("firstAnswer")}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label for="secondAnswer">
-                        <input type="checkbox" name="checkboxes" id="secondAnswer" value="${requestScope.get("secondAnswer")}">
-                        ${requestScope.get("secondAnswer")}
-                    </label>
-                </div>
-            </div>
-        </div>
+<!-- Button -->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="firstAnswer"></label>
+    <div class="col-md-4">
+        <button type="submit" id="firstAnswer" name="${sessionScope.firstAnswer}" value="${sessionScope.step}"
+                class="btn btn-success"> ${requestScope.get("firstAnswer")} </button>
+    </div>
+</div>
 
-    </fieldset>
-</form>
-<br>
-<br>
+<!-- Button -->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="secondAnswer"></label>
+    <div class="col-md-4">
+        <button type="submit" id="secondAnswer" name="${sessionScope.secondAnswer}" value="${sessionScope.step}"
+                class="btn btn-success"> ${requestScope.get("secondAnswer")} </button>
+    </div>
+</div>
+
 
 <!-- Button -->
 <div class="form-group">
     <label class="col-md-4 control-label" for="next"></label>
     <div class="col-md-4">
-        <button id="next" name="next"
+        <button type="submit" id="next" name="next"
                 class="btn btn-success"> Вперед </button>
     </div>
 </div>
 
 <%@include file="/footer.html"%>
+
 </body>
 </html>

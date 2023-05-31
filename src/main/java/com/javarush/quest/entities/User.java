@@ -30,6 +30,7 @@ public class User {
     }
 
     public Quest getQuest() {
+        Quest quest=new Quest();
         return quest;
     }
 
