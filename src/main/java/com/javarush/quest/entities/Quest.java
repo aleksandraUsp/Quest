@@ -19,18 +19,22 @@ public class Quest {
         return stepString;
     }
     public String getFirstAnswer(int step) {
+        if(step<=2){
         Map<Integer, String> firstAnswers=new HashMap<>();
         firstAnswers.put(0, "Принять вызов");
         firstAnswers.put(1, "Подняться на мостик");
         firstAnswers.put(2, "Рассказать правду о себе");
-        return firstAnswers.get(step);
+        return firstAnswers.get(step);}
+        else return "Нет вариантов";
     }
 
    public String getSecondAnswer(int step) {
+       if(step<=2){
        Map<Integer, String> secondAnswers=new HashMap<>();
        secondAnswers.put(0, "Отклонить вызов");
        secondAnswers.put(1, "Отказаться подниматься на мостик");
        secondAnswers.put(2, "Солгать о себе");
-        return secondAnswers.get(step);
+       return secondAnswers.get(step);}
+       else return "Нет вариантов";
     }
 }
