@@ -1,10 +1,11 @@
 package com.javarush.quest.service;
 
+import com.javarush.quest.entities.Game;
 import com.javarush.quest.entities.Quest;
 import com.javarush.quest.entities.User;
 import com.javarush.quest.repository.Repository;
 import com.javarush.quest.repository.UserRepository;
-import com.javarush.quest.util.QuestException;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -61,5 +62,11 @@ public enum UserService {
         else if (step==2 & numberOfAnswer==2) nextStep=5;
         else nextStep=1000001; //ошибка
         return nextStep;
+    }
+
+    public Game getGameState(int step){
+      if (step==3) return Game.WIN;
+      if (step==4 || step==5 || step==6) return Game.LOSE;
+      else return Game.GAME;
     }
 }

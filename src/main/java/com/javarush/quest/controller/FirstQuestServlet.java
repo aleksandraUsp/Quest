@@ -1,5 +1,6 @@
 package com.javarush.quest.controller;
 
+import com.javarush.quest.entities.Game;
 import com.javarush.quest.service.UserService;
 import com.javarush.quest.util.Jsp;
 import com.javarush.quest.util.QuestException;
@@ -61,6 +62,12 @@ public class FirstQuestServlet extends HttpServlet {
 
         int nextStep = userService.getNextStep(numberOfStep, answer);
         if (nextStep == 1000001) throw new QuestException("Что-то пошло не так!");
+
+        Game state=userService.getGameState(nextStep);
+        if (state==Game.WIN || state==Game.LOSE){
+            session.setAttribute("numberOfStep", nextStep);
+            Jsp.forward(request, response, "FinalPage");}
+
         else numberOfStep = nextStep;
 
 

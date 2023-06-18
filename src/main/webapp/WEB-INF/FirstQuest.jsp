@@ -18,8 +18,9 @@
 
         <!-- Form Name -->
         <legend>Первый квест</legend>
+    <br>
         <p>Шаг ${sessionScope.get("numberOfStep")}</p>
-
+    <br>
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="step">Состояние</label>
@@ -28,7 +29,9 @@
                     ${requestScope.get("step")}</textarea>
             </div>
         </div>
+    <br>
     <input type="radio" name="numberOfFirstAnswer" value="1"/>${requestScope.get("firstAnswer")}
+    <br>
     <input type="radio" name="numberOfSecondAnswer" value="2"/>${requestScope.get("secondAnswer")}
 
 
