@@ -28,8 +28,8 @@
                     ${requestScope.get("step")}</textarea>
             </div>
         </div>
-    <input type="radio" name="numberOfFirstAnswer" value="${requestScope.numberOfFirstAnswer}"/>${requestScope.get("firstAnswer")}
-    <input type="radio" name="numberOfSecondAnswer" value="${requestScope.numberOfSecondAnswer}"/>${requestScope.get("secondAnswer")}
+    <input type="radio" name="numberOfFirstAnswer" value="1"/>${requestScope.get("firstAnswer")}
+    <input type="radio" name="numberOfSecondAnswer" value="2"/>${requestScope.get("secondAnswer")}
 
 
 <!-- Button first answer-->
@@ -37,7 +37,7 @@
 <div class="form-group">
     <label class="col-md-4 control-label" for="firstAnswer"></label>
     <div class="col-md-4">
-        <button type="submit" id="firstAnswer" name="numberOfFirstAnswer" value="${requestScope.numberOfFirstAnswer}"
+        <button type="submit" id="firstAnswer" name="numberOfFirstAnswer" value="1"
                 class="btn btn-success"> ${requestScope.get("firstAnswer")} </button>
     </div>
 </div>
@@ -48,7 +48,7 @@
 <div class="form-group">
     <label class="col-md-4 control-label" for="secondAnswer"></label>
     <div class="col-md-4">
-        <button type="submit" id="secondAnswer" name="numberOfSecondAnswer" value="${requestScope.numberOfSecondAnswer}"
+        <button type="submit" id="secondAnswer" name="numberOfSecondAnswer" value="2"
                 class="btn btn-success"> ${requestScope.get("secondAnswer")} </button>
     </div>
 </div>

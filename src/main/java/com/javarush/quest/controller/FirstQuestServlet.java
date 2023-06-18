@@ -23,8 +23,6 @@ public class FirstQuestServlet extends HttpServlet {
         List<String> firstQuest = userService.getFirstQuest(0);
 
         session.setAttribute("numberOfStep", 0);
-        request.setAttribute("numberOfFirstAnswer", 0);
-        request.setAttribute("numberOfSecondAnswer", 0);
         request.setAttribute("step", firstQuest.get(0));//request.setAttribute("step", "Ты потерял память.Принять вызов НЛО?");
         request.setAttribute("firstAnswer", firstQuest.get(1));//request.setAttribute("firstAnswer", "Принять вызов");
         request.setAttribute("secondAnswer", firstQuest.get(2));//request.setAttribute("secondAnswer", "Отклонить вызов");
@@ -38,9 +36,7 @@ public class FirstQuestServlet extends HttpServlet {
         HttpSession session = request.getSession();
         int numberOfStep, answer;
         Optional<String> optionalOfStep = Optional.ofNullable(request.getParameter("numberOfStep"));
-        if (optionalOfStep.isPresent()) {
-            numberOfStep = Integer.parseInt(optionalOfStep.get());
-        } else numberOfStep = 0;
+        numberOfStep = optionalOfStep.map(Integer::parseInt).orElse(0);
 
         answer = 0;
 
@@ -62,16 +58,6 @@ public class FirstQuestServlet extends HttpServlet {
         if (answer != 1 && answer != 2)
             throw new QuestException("Не выбран первый или второй вариант!");
 
-/*
-        if (session.getAttribute("numberOfFirstAnswer") != null) {
-            numberOfFirstAnswer = (int) session.getAttribute("numberOfFirstAnswer");
-            answer = 1;
-        } else if (session.getAttribute("numberOfSecondAnswer") != null) {
-            numberOfSecondAnswer = (int) session.getAttribute("numberOfSecondAnswer");
-            answer = 2;
-        } else throw new QuestException("Не выбран первый или второй вариант!");
-
- */
 
         int nextStep = userService.getNextStep(numberOfStep, answer);
         if (nextStep == 1000001) throw new QuestException("Что-то пошло не так!");
@@ -79,7 +65,7 @@ public class FirstQuestServlet extends HttpServlet {
 
 
         List<String> firstQuest = userService.getFirstQuest(numberOfStep);
-        session.setAttribute("step", numberOfStep);
+        session.setAttribute("numberOfStep", numberOfStep);
         request.setAttribute("step", firstQuest.get(0));
         //if (!firstQuest.get(1).equals("Нет вариантов")){
         request.setAttribute("firstAnswer", firstQuest.get(1));
