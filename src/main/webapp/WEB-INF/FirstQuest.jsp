@@ -14,40 +14,57 @@
 </head>
 <body>
 <form class="form-horizontal" action="/firstQuest" method="post">
-    <fieldset>
+
 
         <!-- Form Name -->
         <legend>Первый квест</legend>
-        <p>Шаг ${sessionScope.get("step")}</p>
+        <p>Шаг ${sessionScope.get("numberOfStep")}</p>
 
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="step">Состояние</label>
             <div class="col-md-4">
-                <textarea class="form-control" id="step" name=${requestScope.get("step")}>
+                <textarea class="form-control" id="step" name="step">
                     ${requestScope.get("step")}</textarea>
             </div>
         </div>
+    <input type="radio" name="numberOfFirstAnswer" value="${requestScope.numberOfFirstAnswer}"/>${requestScope.get("firstAnswer")}
+    <input type="radio" name="numberOfSecondAnswer" value="${requestScope.numberOfSecondAnswer}"/>${requestScope.get("secondAnswer")}
 
-<!-- Button -->
-<c:if test="${sessionScope.step<=2}">
+
+<!-- Button first answer-->
+<c:if test="${sessionScope.numberOfStep<=2}">
 <div class="form-group">
     <label class="col-md-4 control-label" for="firstAnswer"></label>
     <div class="col-md-4">
-        <button type="submit" id="firstAnswer" name="${sessionScope.firstAnswer}" value="${sessionScope.step}"
+        <button type="submit" id="firstAnswer" name="numberOfFirstAnswer" value="${requestScope.numberOfFirstAnswer}"
                 class="btn btn-success"> ${requestScope.get("firstAnswer")} </button>
     </div>
 </div>
 </c:if>
 
-<!-- Button -->
+<!-- Button second answer-->
+<c:if test="${sessionScope.numberOfStep<=2}">
 <div class="form-group">
     <label class="col-md-4 control-label" for="secondAnswer"></label>
     <div class="col-md-4">
-        <button type="submit" id="secondAnswer" name="${sessionScope.secondAnswer}" value="${sessionScope.step}"
+        <button type="submit" id="secondAnswer" name="numberOfSecondAnswer" value="${requestScope.numberOfSecondAnswer}"
                 class="btn btn-success"> ${requestScope.get("secondAnswer")} </button>
     </div>
 </div>
+</c:if>
+
+        <!-- Button go to Final quest page-->
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="goToFinal"></label>
+            <div class="col-md-4">
+                <button type="submit" id="goToFinal" name="numberOfStep" value="${sessionScope.get("numberOfStep")}"
+                        class="btn btn-success"> Вперед </button>
+            </div>
+        </div>
+
+
 
 <%@include file="/footer.html"%>
 
