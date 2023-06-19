@@ -13,9 +13,9 @@
         <legend>Итоговая страница</legend>
         <p style="font-size: 14px">Шаг ${sessionScope.get("numberOfStep")}</p>
         <br>
-        <p style="font-size: 14px">Состояние</p>
+        <p style="font-size: 14px">Состояние:</p>
         <br>
-        <p style="font-size: 14px"> ${sessionScope.get("finalStateString")}</p>
+       
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="step">Состояние</label>
