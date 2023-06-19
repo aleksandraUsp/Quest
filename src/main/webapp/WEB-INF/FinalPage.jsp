@@ -6,19 +6,23 @@
     <title>ИТОГ КВЕСТА</title>
 </head>
 <body>
-<form class="form-horizontal" action="/final" method="post">
+<form class="form-horizontal" action="/final" method="get">
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Первый квест</legend>
-        <p>Шаг ${sessionScope.get("step")}</p>
-
+        <legend>Итоговая страница</legend>
+        <p style="font-size: 14px">Шаг ${sessionScope.get("numberOfStep")}</p>
+        <br>
+        <p style="font-size: 14px">Состояние</p>
+        <br>
+        <p style="font-size: 14px"> ${sessionScope.get("finalStateString")}</p>
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="step">Состояние</label>
             <div class="col-md-4">
                 <textarea style="font-size: 14px" class="form-control" id="step" name="finalStateString">
-                    ${sessionScope.get("finalStateString")}</textarea>
+                    ${sessionScope.get("finalStateString")}
+                   </textarea>
             </div>
         </div>
 

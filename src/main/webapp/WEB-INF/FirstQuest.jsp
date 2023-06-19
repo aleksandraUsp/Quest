@@ -34,29 +34,6 @@
     <br>
     <input type="radio" name="numberOfSecondAnswer" value="2"/>${requestScope.get("secondAnswer")}
 
-
-<!-- Button first answer-->
-<c:if test="${sessionScope.numberOfStep<=2}">
-<div class="form-group">
-    <label class="col-md-4 control-label" for="firstAnswer"></label>
-    <div class="col-md-4">
-        <button type="submit" id="firstAnswer" name="numberOfFirstAnswer" value="1"
-                class="btn btn-success"> ${requestScope.get("firstAnswer")} </button>
-    </div>
-</div>
-</c:if>
-
-<!-- Button second answer-->
-<c:if test="${sessionScope.numberOfStep<=2}">
-<div class="form-group">
-    <label class="col-md-4 control-label" for="secondAnswer"></label>
-    <div class="col-md-4">
-        <button type="submit" id="secondAnswer" name="numberOfSecondAnswer" value="2"
-                class="btn btn-success"> ${requestScope.get("secondAnswer")} </button>
-    </div>
-</div>
-</c:if>
-
         <!-- Button go to Final quest page-->
 
         <div class="form-group">

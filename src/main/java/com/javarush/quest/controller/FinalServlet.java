@@ -22,6 +22,7 @@ public class FinalServlet extends HttpServlet {
 
         Optional<String> optionalOfStep = Optional.ofNullable(request.getParameter("numberOfStep"));
         int numberOfStep = optionalOfStep.map(Integer::parseInt).orElse(300);
+        session.setAttribute("numberOfStep", numberOfStep);
         Game state = userService.getGameState(numberOfStep);
         if (state == Game.WIN) {
             session.setAttribute("finalStateString", winState);
@@ -33,29 +34,6 @@ public class FinalServlet extends HttpServlet {
         }
 
         Jsp.forward(request, response, "FinalPage");
-
-
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String winState = "Вы выиграли! Поздравляем!!!";
-        String loseState = "Вы проиграли. Нам очень жаль. Попробуете еще?";
-
-        Optional<String> optionalOfStep = Optional.ofNullable(request.getParameter("numberOfStep"));
-        int numberOfStep = optionalOfStep.map(Integer::parseInt).orElse(300);
-        Game state = userService.getGameState(numberOfStep);
-        if (state == Game.WIN) {
-            session.setAttribute("finalStateString", winState);
-            session.setAttribute("finalState", Game.WIN);
-        }
-        if (state == Game.LOSE) {
-            session.setAttribute("finalStateString", loseState);
-            session.setAttribute("finalState", Game.LOSE);
-        }
-
-        Jsp.forward(request, response, "FinalPage");
-
-    }
 }
