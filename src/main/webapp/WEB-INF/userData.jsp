@@ -21,7 +21,7 @@
         <br>
         <p style="font-size: 14px">User password: "${sessionScope.get("password")}"</p>
         <br>
-        <p style="font-size: 14px">User role: "${sessionScope.get("login")}"</p>
+        <p style="font-size: 14px">User role: "${sessionScope.get("role")}"</p>
         <br>
         <p style="font-size: 14px">User game status:
             "${sessionScope.get("finalState")==null?"not begin":sessionScope.get("finalState")}"</p>
