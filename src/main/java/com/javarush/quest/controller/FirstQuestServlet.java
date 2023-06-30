@@ -45,13 +45,11 @@ public class FirstQuestServlet extends HttpServlet {
 
         Optional<String> optionalOfNumberOfFirstAnswer = Optional.ofNullable(request.getParameter("numberOfFirstAnswer"));
         if (optionalOfNumberOfFirstAnswer.isPresent()) {
-            //int numberOfFirstAnswer = Integer.parseInt(optionalOfNumberOfFirstAnswer.get());
             answer = 1;
         }
 
         Optional<String> optionalOfNumberOfSecondAnswer = Optional.ofNullable(request.getParameter("numberOfSecondAnswer"));
         if (optionalOfNumberOfSecondAnswer.isPresent()) {
-            //int numberOfSecondAnswer = Integer.parseInt(optionalOfNumberOfSecondAnswer.get());
             answer = 2;
         }
 
@@ -66,14 +64,15 @@ public class FirstQuestServlet extends HttpServlet {
         if (nextStep == 1000001) throw new QuestException("Что-то пошло не так!");
 
         Game state = userService.getGameState(nextStep);
+        session.setAttribute("numberOfStep", nextStep);
+        session.setAttribute("finalState", state);   // set Game.WIN or Game.GAME or Game.LOSE
+
         if (state == Game.WIN) {
             session.setAttribute("finalStateString", winState);
-            session.setAttribute("finalState", Game.WIN);
             Jsp.forward(request, response, "FinalPage");
         }
         if (state == Game.LOSE) {
             session.setAttribute("finalStateString", loseState);
-            session.setAttribute("finalState", Game.LOSE);
             Jsp.forward(request, response, "FinalPage");
         } else numberOfStep = nextStep;
 

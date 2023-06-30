@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @WebServlet(name = "UsersServlet", value = "/users")
 public class UsersServlet extends HttpServlet {
-    private final UserService userService=UserService.USER_SERVICE;;
+    private final UserService userService=UserService.USER_SERVICE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -13,8 +13,6 @@
         <legend>Итоговая страница</legend>
         <p style="font-size: 14px">Шаг ${sessionScope.get("numberOfStep")}</p>
         <br>
-        <p style="font-size: 14px">Состояние:</p>
-        <br>
 
         <!-- Textarea -->
         <div class="form-group">
@@ -29,7 +27,7 @@
         <br>
         <a href="firstQuest" style="font-size: 14px">Начать квест</a>
         <br>
-        <a href="" style="font-size: 14px">Главная страница</a>
+        <a href="/" style="font-size: 14px">Главная страница</a>
 
         <%@include file="/footer.html" %>
 

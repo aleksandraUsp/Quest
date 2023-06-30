@@ -1,10 +1,11 @@
 package com.javarush.quest.entities;
 
-import com.javarush.quest.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 
 @Data
@@ -21,20 +22,16 @@ public class User {
 
     private Role role;
 
-    private String image;
+   /*private Quest quest;
 
-    private Quest quest;
-    private String getImage(){
-        return "image"+id;
-
-    }
 
     public Quest getQuest() {
-        Quest quest=new Quest();
-        return quest;
+         return new Quest();
     }
 
     public void setQuest(Quest quest) {
         this.quest = quest;
     }
+
+    */
 }

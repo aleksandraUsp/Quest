@@ -2,7 +2,6 @@ package com.javarush.quest.controller;
 
 import com.javarush.quest.entities.Role;
 import com.javarush.quest.entities.User;
-import com.javarush.quest.service.ImageService;
 import com.javarush.quest.service.UserService;
 import com.javarush.quest.util.Jsp;
 import com.javarush.quest.util.QuestException;
@@ -12,7 +11,6 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,9 +19,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UserServlet extends HttpServlet {
 
     UserService userService = UserService.USER_SERVICE;
-    ImageService imageService = ImageService.IMAGE_SERVICE;
     private static volatile AtomicInteger UID=new AtomicInteger(1);
-    public static final String PART_NAME = "image";
+
 
     @Override
     public void init()  {
@@ -44,19 +41,13 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long id = getId(request);
-        String image = "image-" + id;
-        Part data = request.getPart(PART_NAME);
-        if (Objects.nonNull(data) && data.getInputStream().available() > 0) {
-            imageService.uploadImage(request, id);
-        }
-            User user = User.with()
+        User user = User.with()
                     .id(id)
                     .login(request.getParameter("login"))
                     .password(request.getParameter("password"))
-                    .image(image)
-                    .role(Role.valueOf(request.getParameter("role")))
+                    .role(Role.getRole(request.getParameter("role")))
                     .get();
             postUser(request, user);
             Jsp.redirect(response, "users");
@@ -64,14 +55,13 @@ public class UserServlet extends HttpServlet {
 
 
         protected void postUser (HttpServletRequest request, User user){
-            Optional<Long> stringId = Optional.ofNullable(user.getId());
-            boolean present = stringId.isPresent();
-            if (present && request.getParameter("update") != null) {
+            if (user.getId()>0L && request.getParameter("action").equals("update"))
                 userService.update(user);
-            } else if (present && request.getParameter("delete") != null) {
+             else if (user.getId()>0L && request.getParameter("actionDelete").equals("delete")) {
                 userService.delete(user);
-            } else if (!present && request.getParameter("creat") != null) {
-                userService.create(user);
+            } else if (user.getId()==0L && request.getParameter("action").equals("create")) {
+                long id=userService.create(user);
+                setUserParametersInSession(request, id);
             } else {
                 throw new QuestException("unknown command for user");
             }
@@ -82,7 +72,17 @@ public class UserServlet extends HttpServlet {
                     Long.parseLong(request.getParameter("id"))
                     : 0L;
         }
+
+    public void setUserParametersInSession(HttpServletRequest request, long id) {
+        HttpSession session = request.getSession();
+        session.setAttribute("id", id);
+        session.setAttribute("login", userService.get(id).getLogin());
+        session.setAttribute("password", userService.get(id).getPassword());
+        session.setAttribute("role", userService.get(id).getRole());
+
+        }
     }
+
 
 
 

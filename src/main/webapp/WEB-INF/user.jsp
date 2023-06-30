@@ -14,20 +14,11 @@
 </head>
 <body>
 <div class="container"> </div>
-<form class="form-horizontal" action="user?id=${requestScope.user.id==null?0:requestScope.user.id}" method="post"
-      enctype="multipart/form-data">
+<form class="form-horizontal" action="user?id=${requestScope.user.id==null?0:requestScope.user.id}" method="post">
     <fieldset>
 
         <!-- Form Name -->
         <legend>User Form</legend>
-
-        <!-- Avatar Input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="image">Avatar</label>
-            <div class="col-md-4">
-                <input id="image" name="image" class="input-file" type="file" value="">
-            </div>
-        </div>
 
         <input type="hidden" name="id" value="${requestScope.user.id}">
 
@@ -68,7 +59,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>
             <div class="col-md-4">
-                <button id="submit" name="${requestScope.user.id>0?"update":"create"}"
+                <button id="submit" name="action" value="${requestScope.user.id>0?"update":"create"}"
                         class="btn btn-success">${requestScope.user.id>0?"Update":"Create"}</button>
             </div>
         </div>
@@ -79,7 +70,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="userDelete"></label>
             <div class="col-md-4">
-                <button id="userDelete" name="delete" class="btn btn-danger">Delete</button>
+                <button id="userDelete" name="actionDelete" value="delete" class="btn btn-danger">Delete</button>
             </div>
         </div>
         </c:if>

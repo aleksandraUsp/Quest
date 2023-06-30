@@ -11,15 +11,19 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class UserRepository implements Repository<User> {
 
-    public final AtomicLong id = new AtomicLong(4);
+    private volatile long id=1;
     public Map<Long, User> map = new HashMap<>();
 
     public UserRepository() {
-        map.put(1L, new User(1L, "Petr", "3456", Role.USER, "image-1.jpg",null));
-        map.put(2L, new User(2L,"Artur","", Role.GUEST, "image-2.jpg",null));
-        map.put(3L, new User(3L,"Olga","1234", Role.ADMIN, "image-3.png",null));
+        map.put(1L, new User(id, "Petr", "3456", Role.USER));
+        map.put(2L, new User(incrementId(),"Artur","", Role.GUEST));
+        map.put(3L, new User(incrementId(),"Olga","1234", Role.ADMIN));
 
 }
+
+    public synchronized long incrementId() {
+        return id++;
+    }
 
     @Override
     public Collection<User> getAll() {
@@ -37,9 +41,11 @@ public class UserRepository implements Repository<User> {
     }
 
     @Override
-    public void create(User entity) {
-        entity.setId(id.incrementAndGet());
+    public long create(User entity) {
+        long userIdInRepository=incrementId();
+        entity.setId(userIdInRepository);
         update(entity);
+        return userIdInRepository;
     }
 
     @Override

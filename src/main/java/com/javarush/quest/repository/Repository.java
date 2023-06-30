@@ -10,7 +10,7 @@ public interface Repository<T> {
 
    T get(long id);
 
-    void create(T entity);
+    long create(T entity);
 
     void update(T entity);
 
